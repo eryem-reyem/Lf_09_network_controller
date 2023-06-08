@@ -78,11 +78,33 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    showHostDetails (data) {
+        const path = 'http://localhost:5000/api/host'
+        axios.post(path, data)
+            .then(response => {
+            this.host = response.data
+            })
+            .catch(error => {
+            console.log(error)
+            })
+    },
+    showDeviceDetails (data) {
+        const path = 'http://localhost:5000/api/network-device'
+        axios.post(path, data)
+            .then(response => {
+            this.network_device = response.data
+            })
+            .catch(error => {
+            console.log(error)
+            })
     }
   },
   created () {
     this.getNetworkDevices()
     this.getHosts()
+    this.showHostDetails()
+    this.showDeviceDetails()
   }
 }
 </script>
