@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 const routerOptions = [
-  { path: '/', component: 'NetworkController' },
+  { path: '/', component: 'Home' },
   { path: '/helloworld', component: 'HelloWorld' },
   { path: '/home', component: 'Home' },
   { path: '/about', component: 'About' },
