@@ -3,7 +3,7 @@ import Router from 'vue-router'
 const routerOptions = [
   { path: '/', component: 'NetworkController' },
   { path: '/helloworld', component: 'HelloWorld' },
-  { path: '/home', component: 'Home'},
+  { path: '/home', component: 'Home' },
   { path: '/about', component: 'About' },
   { path: '*', component: 'NotFound' }
 ]
