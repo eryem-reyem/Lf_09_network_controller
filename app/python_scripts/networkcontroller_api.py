@@ -15,17 +15,20 @@ class BasicApi:
         temp_url = self._basic_url + path
         return request('GET', url=temp_url, headers=temp_headers)
 
-    def _basic_post(self, url: str, headers: dict, payload: dict):
-        return request('POST', url=url, headers=headers, data=json.dumps(payload))
+    def _basic_post(self, path: str, headers: dict, payload: dict):
+        temp_headers = self.__get_headers_with_auth_token(headers=headers)
+        temp_url = self._basic_url + path
+        return request('POST', url=temp_url, headers=temp_headers, data=json.dumps(payload))
 
     def __get_token(self) -> str:
         payload = {
             "username": "cisco",
             "password": "cisco123!"
         }
-        response = self._basic_post(url=f"{self._basic_url}ticket",
-                                    headers=self._basic_headers,
-                                    payload=payload)
+        response = request('POST',
+                           url=f"{self._basic_url}ticket",
+                            headers=self._basic_headers,
+                            data=json.dumps(payload))
         return response.json()['response']['serviceTicket']
 
     def __get_headers_with_auth_token(self, headers) -> dict:
@@ -57,20 +60,23 @@ class Api(BasicApi):
         response = self._basic_get(path=f'network-device/{id}',
                                    headers=self._basic_headers)
         return response.json()
+    
+    def get_users(self):
+        response = self._basic_get(path=f'user',
+                                   headers=self._basic_headers)
+        return response.json()
+        
+    def add_user(self, username, password, role):
+        payload = {
+            "username": username,
+            "password": password,
+            "authorization":[{"role": role}]
+            }
+        response = self._basic_post(path='user',
+                                    headers=self._basic_headers,
+                                    payload=payload)
+        return response.json()
 
 if __name__ == '__main__':
     que = Api()
-    # networkdevices = que.get_network_devices()
-    # hosts = que.get_hosts()
-
-    ip = '192.168.102.3'
-    host = que.get_host_by_ip(ip)
-    print(host)
-
-    id = 'CAT10103I73-uuid'
-    device = que.get_device_by_id(id)
-    print(device)
-
-
-    # for i in networkdevices['response']:
-    #     print(i)
+    print(que.get_users())

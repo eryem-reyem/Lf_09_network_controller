@@ -26,6 +26,16 @@ def get_hosts():
     response = api.get_hosts()
     return jsonify(response['response'])
 
+@app.route('/api/users')
+def get_users():
+    response = api.get_users()
+    return jsonify(response['response'])
+
+@app.route('/api/add_users')
+def add_user(data):
+    response = api.add_user(data.us)
+    return jsonify(response['response'])
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
