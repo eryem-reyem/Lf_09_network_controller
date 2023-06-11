@@ -4,6 +4,11 @@
       <div class="row">
         <div class="col">
           <h2 class="title">Hosts</h2>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" :style="'width: ' + reachableHostsPercentage + '%;'" :aria-valuenow="reachableHostsPercentage" aria-valuemin="0" aria-valuemax="100">{{ reachableHostsPercentage }}%</div>
+            </div>
+
+            <p>Anzahl Hosts: {{ totalHostCount }}</p>
           <p>Erreichbare Hosts: {{ reachableHostsCount }}</p>
           <p>
             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#hostsList" aria-expanded="false" aria-controls="hostsList">
@@ -106,8 +111,14 @@ export default {
     }
   },
   computed: {
+    totalHostCount () {
+      return this.hosts.length
+    },
     reachableHostsCount () {
       return this.hosts.filter((host) => host.pingStatus === 'SUCCESS').length
+    },
+    reachableHostsPercentage () {
+      return Math.round((this.reachableHostsCount / this.hosts.length) * 100)
     }
   },
   created () {
@@ -146,4 +157,5 @@ export default {
 .text-danger {
   color: red;
 }
+
 </style>
