@@ -74,7 +74,7 @@ export default {
         const path = 'http://localhost:5000/api/add_user'
         axios.post(path, this.form)
             .then(response => {
-            this.users = response.data
+            this.users = this.getUsers()
             })
             .catch(error => {
             console.log(error)
