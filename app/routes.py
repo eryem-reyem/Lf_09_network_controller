@@ -33,13 +33,13 @@ def get_users():
 
 @app.route('/api/add_user', methods=['POST'])
 def add_user():
-    data = request.data
+    data = request.json
     response = api.add_user(data.get('username'), data.get('password'), data.get('role'))
     return jsonify(response['response'])
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
-    if app.debug:
-        return requests.get('http://localhost:8080/{}'.format(path)).text
+    # if app.debug:
+    #     return requests.get('http://localhost:8080/{}'.format(path)).text
     return render_template("index.html")
