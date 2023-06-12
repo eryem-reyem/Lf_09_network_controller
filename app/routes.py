@@ -1,5 +1,5 @@
 from app import app, api
-from flask import render_template, jsonify
+from flask import render_template, jsonify, request
 from random import *
 from flask_cors import CORS
 import requests
@@ -16,14 +16,15 @@ def random_number():
     logging.info(response)
     return jsonify(response)
 
-@app.route('/api/network-devices')
-def get_network_devices():
-    response = api.get_network_devices()
+@app.route('/api/users')
+def get_users():
+    response = api.get_users()
     return jsonify(response['response'])
 
-@app.route('/api/hosts')
-def get_hosts():
-    response = api.get_hosts()
+@app.route('/api/add_user', methods=['POST'])
+def add_user():
+    data = request.json
+    response = api.add_user(data.get('username'), data.get('password'), data.get('role'))
     return jsonify(response['response'])
 
 @app.route('/', defaults={'path': ''})
@@ -31,6 +32,4 @@ def get_hosts():
 def catch_all(path):
     # if app.debug:
     #     return requests.get('http://localhost:8080/{}'.format(path)).text
-    if path == '':
-        logging.info(True)
     return render_template("index.html")
