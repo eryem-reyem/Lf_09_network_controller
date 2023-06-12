@@ -13,6 +13,7 @@
                         <th>{{ user.username }}</th>
                         <th>{{ user.password }}</th>
                         <th v-for="element in user.authorization" :key="element">{{ element.role }} <br></th>
+                        <th><button type="button" @click="deleteUser(user)">Delete</button></th>
                     </tr>
                     </tbody>
             </table>
@@ -73,6 +74,16 @@ export default {
     addUser () {
         const path = 'http://localhost:5000/api/add_user'
         axios.post(path, this.form)
+            .then(response => {
+            this.users = this.getUsers()
+            })
+            .catch(error => {
+            console.log(error)
+            })
+    },
+    deleteUser (user) {
+        const path = 'http://localhost:5000/api/delete_user'
+        axios.post(path, user)
             .then(response => {
             this.users = this.getUsers()
             })
