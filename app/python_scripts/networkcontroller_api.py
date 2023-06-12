@@ -50,16 +50,6 @@ class Api(BasicApi):
         response = self._basic_get(path='host',
                                    headers=self._basic_headers)
         return response.json()
-
-    def get_host_by_ip(self, ip):
-        response = self._basic_get(path=f'host/ip-address/{ip}',
-                                   headers=self._basic_headers)
-        return response.json()
-
-    def get_device_by_id(self, id):
-        response = self._basic_get(path=f'network-device/{id}',
-                                   headers=self._basic_headers)
-        return response.json()
     
     def get_users(self):
         response = self._basic_get(path=f'user',

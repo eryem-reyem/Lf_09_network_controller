@@ -16,16 +16,6 @@ def random_number():
     logging.info(response)
     return jsonify(response)
 
-@app.route('/api/network-devices')
-def get_network_devices():
-    response = api.get_network_devices()
-    return jsonify(response['response'])
-
-@app.route('/api/hosts')
-def get_hosts():
-    response = api.get_hosts()
-    return jsonify(response['response'])
-
 @app.route('/api/users')
 def get_users():
     response = api.get_users()
