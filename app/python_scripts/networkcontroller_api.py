@@ -11,12 +11,12 @@ class BasicApi:
         }
 
     def _basic_get(self, path: str, headers: dict):
-        temp_headers = self.__get_headers_with_auth_token(headers=headers)
+        temp_headers = self._get_headers_with_auth_token(headers=headers)
         temp_url = self._basic_url + path
         return request('GET', url=temp_url, headers=temp_headers)
 
     def _basic_post(self, path: str, headers: dict, payload: dict):
-        temp_headers = self.__get_headers_with_auth_token(headers=headers)
+        temp_headers = self._get_headers_with_auth_token(headers=headers)
         temp_url = self._basic_url + path
         return request('POST', url=temp_url, headers=temp_headers, data=json.dumps(payload))
 
@@ -31,7 +31,7 @@ class BasicApi:
                             data=json.dumps(payload))
         return response.json()['response']['serviceTicket']
 
-    def __get_headers_with_auth_token(self, headers) -> dict:
+    def _get_headers_with_auth_token(self, headers) -> dict:
         headers['X-Auth-Token'] = self.__get_token()
         return headers
 
@@ -66,6 +66,13 @@ class Api(BasicApi):
                                     headers=self._basic_headers,
                                     payload=payload)
         return response.json()
+    
+    def delete_user(self, username):
+        temp_headers = self._get_headers_with_auth_token(headers=self._basic_headers)
+        response = request('DELETE',
+                        url=f'{self._basic_url}user/{username}',
+                        headers=temp_headers)
+        return response
 
 if __name__ == '__main__':
     que = Api()

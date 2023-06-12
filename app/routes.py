@@ -29,9 +29,18 @@ def add_user():
     response = api.add_user(data.get('username'), data.get('password'), data.get('role'))
     return jsonify(response['response'])
 
+@app.route('/api/delete_user', methods=['POST'])
+def delete_user():
+    data = request.json
+    response = api.delete_user(data.get('username'))
+    return str(response.status_code)
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
-    # if app.debug:
-    #     return requests.get('http://localhost:8080/{}'.format(path)).text
-    return render_template("index.html")
+    try:
+        if app.debug:
+            return requests.get('http://localhost:8080/{}'.format(path)).text
+        return render_template("index.html")
+    except:
+        return render_template("index.html")
