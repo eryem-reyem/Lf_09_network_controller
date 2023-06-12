@@ -8,13 +8,15 @@ import logging
 
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-@app.route('/api/random')
-def random_number():
-    response = {
-        'randomNumber': randint(1, 100)
-    }
-    logging.info(response)
-    return jsonify(response)
+@app.route('/api/network-devices')
+def get_network_devices():
+    response = api.get_network_devices()
+    return jsonify(response['response'])
+
+@app.route('/api/hosts')
+def get_hosts():
+    response = api.get_hosts()
+    return jsonify(response['response'])
 
 @app.route('/api/users')
 def get_users():

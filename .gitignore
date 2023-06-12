@@ -16,3 +16,5 @@ yarn-error.log*
 .venv
 
 try*
+C:\Users\Chris\.vscode\Schule\Lf_09_network_controller\app\__pycache__
+app\python_scripts\__pycache__
