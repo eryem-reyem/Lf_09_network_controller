@@ -2,7 +2,7 @@
 <div>
     <div class="row">
         <div class="column">
-            <table>
+            <table class="table w-75 position-absolute top-50 start-50 translate-middle">
                 <thead>
                     <th class="text-start" scope="col">Username</th>
                     <th class="text-start" scope="col">Password</th>
@@ -10,15 +10,20 @@
                     </thead>
                     <tbody>
                     <tr v-for="user in users" :key="user">
-                        <th>{{ user.username }}</th>
-                        <th>{{ user.password }}</th>
-                        <th v-for="element in user.authorization" :key="element">{{ element.role }} <br></th>
-                        <th><button type="button" @click="deleteUser(user)">Delete</button></th>
+                        <th class="text-start">{{ user.username }}</th>
+                        <th class="text-start">{{ user.password }}</th>
+                        <th v-for="element in user.authorization" :key="element" class="text-start">{{ element.role }} <br></th>
+                        <th><button class="btn-danger" type="button btn-danger" @click="deleteUser(user)">Delete</button></th>
                     </tr>
                     </tbody>
             </table>
         </div>
-        <div class="column">
+        <div class="add-user">
+          <button class="btn btn-primary add-user-button" @click="showUserCard">+ Add User</button>
+        </div>
+        <div class="overlay" v-if="userCard" @click="closeUserCard"></div>
+        <div class="card card-body form-wrapper" v-if="userCard">
+          <i class="fa-solid fa-xmark close" @click="closeUserCard"></i>
             <form v-on:submit.prevent="addUser">
                 <div>
                     <label for="username">Username</label>
@@ -53,6 +58,7 @@ export default {
   data () {
     return {
       users: this.getUsers(),
+      userCard: false,
       form: {
         username: '',
         password: '',
@@ -62,34 +68,41 @@ export default {
   },
   methods: {
     getUsers () {
-        const path = 'http://localhost:5000/api/users'
-        axios.get(path)
-            .then(response => {
-            this.users = response.data
-            })
-            .catch(error => {
-            console.log(error)
-            })
+      const path = 'http://localhost:5000/api/users'
+      axios.get(path)
+        .then(response => {
+          this.users = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     addUser () {
-        const path = 'http://localhost:5000/api/add_user'
-        axios.post(path, this.form)
-            .then(response => {
-            this.users = this.getUsers()
-            })
-            .catch(error => {
-            console.log(error)
-            })
+      const path = 'http://localhost:5000/api/add_user'
+      axios.post(path, this.form)
+        .then(response => {
+          this.users = this.getUsers()
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     deleteUser (user) {
-        const path = 'http://localhost:5000/api/delete_user'
-        axios.post(path, user)
-            .then(response => {
-            this.users = this.getUsers()
-            })
-            .catch(error => {
-            console.log(error)
-            })
+      const path = 'http://localhost:5000/api/delete_user'
+      axios.post(path, user)
+        .then(response => {
+          this.users = this.getUsers()
+          this.userCard = false
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    showUserCard () {
+      this.userCard = true
+    },
+    closeUserCard () {
+      this.userCard = false
     }
   }
 }
@@ -98,5 +111,31 @@ export default {
 <style>
 .title {
   margin-bottom: 1.5rem;
+}
+.card {
+  position: fixed;
+  height: 50%;
+  width: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+.add-user-button {
+  margin-top: 5rem;
+}
+.close {
+  position: absolute;
+  right: 19px;
+  font-size: 33px;
 }
 </style>

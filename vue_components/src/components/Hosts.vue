@@ -42,7 +42,7 @@
       <div class="card card-body" v-if="selectedHost">
         <h3> {{ selectedHost.hostName}}</h3>
         <table class="table">
-          <tboy>
+          <tbody>
             <tr>
               <th scope="row" class="text-left">connectedInterfaceName</th>
               <td> {{ selectedHost.connectedInterfaceName }}</td>
@@ -76,7 +76,7 @@
               <td :class="{ 'text-success': selectedHost.pingStatus === 'SUCCESS', 'text-danger': selectedHost.pingStatus !== 'SUCCESS' }">
                 {{ selectedHost.pingStatus }} </td>
             </tr>
-          </tboy>
+          </tbody>
         </table>
         <button type="button" class="btn btn-light" @click="selectedHost = null">Schließen</button>
       </div>

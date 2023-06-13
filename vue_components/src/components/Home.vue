@@ -9,6 +9,9 @@
     <div class="hosts">
       <Hosts />
     </div>
+    <div class="users">
+      <User />
+    </div>
   </div>
 </div>
 </template>
@@ -17,14 +20,17 @@
 import Nav from './Nav.vue'
 import NetworkController from './NetworkController.vue'
 import Hosts from './Hosts.vue'
+import User from './User.vue'
 
 export default {
   components: {
     Nav,
     NetworkController,
-    Hosts
+    Hosts,
+    User
   }
 }
+
 </script>
 <style>
 .lists {
@@ -37,5 +43,11 @@ export default {
 }
 .hosts {
   padding-top: 4rem;
+}
+.users {
+  display: none;
+}
+.users {
+
 }
 </style>
