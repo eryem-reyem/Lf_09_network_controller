@@ -19,7 +19,7 @@
             </table>
         </div>
         <div class="add-user">
-          <button class="btn btn-primary add-user-button" @click="showUserCard">+ Add User</button>
+          <button class="btn btn-info add-user-button" @click="showUserCard"><i class="fa-solid fa-user-plus"></i>Add User</button>
         </div>
         <div class="overlay" v-if="userCard" @click="closeUserCard"></div>
         <div class="card card-body" v-if="userCard">
@@ -32,13 +32,13 @@
                     <div class="form-floating">
                         <input type="text" class="form-control" id="username" placeholder="Username" v-model="form.username">
                         <label for="username">Username</label>
-                    </div>    
+                    </div>
                 </div>
                 <div class="mb-2">
                     <div class="form-floating">
                         <input type="password" class="form-control" id="password" placeholder="Password" v-model="form.password">
                         <label for="password">Password</label>
-                    </div>  
+                    </div>
                 </div>
                 <div class="mb-2">
                     <div class="form-floating">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-info">Submit</button>
                 </div>
             </form>
         </div>
@@ -95,13 +95,13 @@ export default {
         .catch(error => {
           console.log(error)
         })
+      this.userCard = false
     },
     deleteUser (user) {
       const path = 'http://localhost:5000/api/delete_user'
       axios.post(path, user)
         .then(response => {
           this.users = this.getUsers()
-          this.userCard = false
         })
         .catch(error => {
           console.log(error)
@@ -131,7 +131,7 @@ export default {
   z-index: 9999;
 }
 .overlay {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -140,11 +140,14 @@ export default {
   z-index: 9998;
 }
 .add-user-button {
-  margin-top: 5rem;
+  margin-top: 13rem;
 }
 .close {
   position: absolute;
   right: 19px;
   font-size: 33px;
+}
+.fa-user-plus {
+  margin-right: 9px;
 }
 </style>

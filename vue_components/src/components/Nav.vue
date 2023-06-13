@@ -5,12 +5,6 @@
       <img src="../assets/Logo_Streamline.png" alt="Streamline" id="logo">
     </a>
   </div>
-  <div>
-    <button type="button" class="btn btn-outline-info" @click="showUsersPage"><i class="fa-regular fa-user user"></i>Users</button>
-  </div>
-  <div class="users" :class="">
-    <User />
-  </div>
 </nav>
 </template>
 
