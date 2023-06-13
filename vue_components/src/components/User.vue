@@ -22,27 +22,36 @@
           <button class="btn btn-primary add-user-button" @click="showUserCard">+ Add User</button>
         </div>
         <div class="overlay" v-if="userCard" @click="closeUserCard"></div>
-        <div class="card card-body form-wrapper" v-if="userCard">
-          <i class="fa-solid fa-xmark close" @click="closeUserCard"></i>
+        <div class="card card-body" v-if="userCard">
+            <div class="mb-2" style="margin-bottom: 20px;">
+                <i class="fa-solid fa-xmark close" @click="closeUserCard"></i>
+            </div>
+            <br><br>
             <form v-on:submit.prevent="addUser">
-                <div>
-                    <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="Username" v-model="form.username">
+                <div class="mb-2">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="username" placeholder="Username" v-model="form.username">
+                        <label for="username">Username</label>
+                    </div>    
+                </div>
+                <div class="mb-2">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password" placeholder="Password" v-model="form.password">
+                        <label for="password">Password</label>
+                    </div>  
+                </div>
+                <div class="mb-2">
+                    <div class="form-floating">
+                        <select id="roles" class="form-select" v-model="form.role" placeholder="Role">
+                            <option value="ROLE_ADMIN">Admin</option>
+                            <option value="ROLE_OBSERVER">Observer</option>
+                            <option value="ROLE_INSTALLER">Installer</option>
+                        </select>
+                        <label for="roles">Role</label>
+                    </div>
                 </div>
                 <div>
-                    <label for="password">Password</label>
-                    <input type="text" id="password" placeholder="password" v-model="form.password">
-                </div>
-                <div>
-                    <label for="roles">Role</label>
-                    <select id="roles" v-model="form.role" placeholder="Role">
-                        <option value="ROLE_ADMIN">Admin</option>
-                        <option value="ROLE_OBSERVER">Observer</option>
-                        <option value="ROLE_INSTALLER">Installer</option>
-                    </select>
-                </div>
-                <div>
-                    <button>Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>
