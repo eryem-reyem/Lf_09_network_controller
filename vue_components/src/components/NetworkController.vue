@@ -164,4 +164,7 @@ export default {
 .title {
   margin-bottom: 1.5rem;
 }
+.card {
+  height: 80%;
+}
 </style>

@@ -2,7 +2,7 @@
 <template>
 <div>
   <Nav :class="{active: users}"/>
-  <button type="button" class="btn btn-outline-info user-button" @click="showUsersPage"><i class="fa-solid fa-user user"></i></i>Users</button>
+  <button type="button" class="btn btn-outline-info user-button" @click="showUsersPage"><i class="fa-solid fa-user user"></i>Users</button>
   <button type="button" class="btn btn-outline-info devices-button" :class="{active: users}" @click="users = !users"><i class="fa-solid fa-house house"></i>Overview</button>
   <div class="lists">
     <div class="network-controller">

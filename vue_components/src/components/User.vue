@@ -117,7 +117,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .title {
   margin-bottom: 1.5rem;
 }
